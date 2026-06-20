@@ -81,9 +81,9 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
 
   // Software industry keywords for orbiting
   const rings = [
-    { items: ['Microservices', 'High Availability', 'Load Balancing', 'API Gateway', 'CI/CD', 'Kubernetes'], speed: 0.18, radiusX: 0.28, radiusY: 0.14 },
-    { items: ['Redis', 'Kafka', 'Docker', 'Spring Cloud', 'NodeJS', 'Cassandra', 'ClickHouse', 'MySQL'], speed: -0.12, radiusX: 0.38, radiusY: 0.19 },
-    { items: ['Vue', 'React', 'Grafana', 'Prometheus', 'ELK', 'Jenkins', 'SonarQube', 'Git', 'Agile', 'BDD'], speed: 0.08, radiusX: 0.47, radiusY: 0.24 }
+    { items: ['Microservices', 'High Availability', 'Load Balancing', 'API Gateway', 'CI/CD', 'Kubernetes'], speed: 0.18, radiusX: 0.2, radiusY: 0.12 },
+    { items: ['Redis', 'Kafka', 'Docker', 'Spring Cloud', 'NodeJS', 'Cassandra', 'ClickHouse', 'MySQL'], speed: -0.12, radiusX: 0.28, radiusY: 0.16 },
+    { items: ['Vue', 'React', 'Grafana', 'Prometheus', 'ELK', 'Jenkins', 'SonarQube', 'Git', 'Agile', 'BDD'], speed: 0.08, radiusX: 0.35, radiusY: 0.2 }
   ];
 
   // Floating particles for depth
@@ -98,12 +98,12 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
   function draw() {
     ctx.clearRect(0, 0, w, h);
     const t = Date.now() * 0.001;
-    const cx = w * 0.65, cy = h * 0.5;
+    const cx = w * 0.75, cy = h * 0.5;
 
     // Subtle gradient blobs in background
     const blob1 = ctx.createRadialGradient(cx + Math.sin(t * 0.2) * 50, cy + Math.cos(t * 0.3) * 30, 0, cx, cy, w * 0.4);
-    blob1.addColorStop(0, 'rgba(0, 180, 216, 0.06)');
-    blob1.addColorStop(0.5, 'rgba(0, 119, 182, 0.03)');
+    blob1.addColorStop(0, 'rgba(0, 180, 216, 0.03)');
+    blob1.addColorStop(0.5, 'rgba(0, 119, 182, 0.015)');
     blob1.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = blob1; ctx.fillRect(0, 0, w, h);
 
@@ -112,7 +112,7 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
       const px = p.x * w + Math.sin(t * 0.5 + p.offset) * 20;
       const py = p.y * h + Math.cos(t * 0.3 + p.offset) * 15;
       ctx.beginPath(); ctx.arc(px, py, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 150, 199, ${0.15 + Math.sin(t * 2 + p.offset) * 0.08})`;
+      ctx.fillStyle = `rgba(0, 150, 199, ${0.08 + Math.sin(t * 2 + p.offset) * 0.04})`;
       ctx.fill();
     });
 
@@ -121,8 +121,8 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
       const rx = w * ring.radiusX, ry = h * ring.radiusY;
       ctx.beginPath();
       ctx.ellipse(cx, cy, rx, ry, 0.1 * (ri - 1), 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(0, 119, 182, ${0.06 + ri * 0.02})`;
-      ctx.setLineDash([5, 5]); ctx.lineWidth = 0.8; ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = `rgba(0, 119, 182, ${0.04 + ri * 0.01})`;
+      ctx.setLineDash([5, 5]); ctx.lineWidth = 0.6; ctx.stroke(); ctx.setLineDash([]);
     });
 
     // Draw orbiting items
@@ -140,24 +140,24 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
 
         // Depth effect: items in "back" of orbit are dimmer
         const depth = Math.sin(angle);
-        const alpha = 0.35 + depth * 0.25;
-        const dotSize = 3 + depth * 1.5;
+        const alpha = 0.2 + depth * 0.15;
+        const dotSize = 2.5 + depth * 1;
 
         // Dot
         ctx.beginPath(); ctx.arc(px, py, dotSize, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 119, 182, ${alpha + Math.sin(t * 2 + i) * 0.1})`;
+        ctx.fillStyle = `rgba(0, 119, 182, ${alpha + Math.sin(t * 2 + i) * 0.05})`;
         ctx.fill();
 
         // Glow
         ctx.beginPath(); ctx.arc(px, py, dotSize + 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 180, 216, ${alpha * 0.15})`;
+        ctx.fillStyle = `rgba(0, 180, 216, ${alpha * 0.1})`;
         ctx.fill();
 
         // Label
-        ctx.font = `${9 + depth * 2}px Inter, sans-serif`;
-        ctx.fillStyle = `rgba(90, 111, 128, ${alpha + 0.1})`;
+        ctx.font = `${8 + depth * 1.5}px Inter, sans-serif`;
+        ctx.fillStyle = `rgba(90, 111, 128, ${alpha * 0.7})`;
         ctx.textAlign = 'center';
-        ctx.fillText(item, px, py + dotSize + 13);
+        ctx.fillText(item, px, py + dotSize + 12);
       });
     });
 
@@ -200,8 +200,8 @@ document.querySelectorAll('[data-tilt]').forEach(card => {
         const d = Math.hypot(allPoints[i].x - allPoints[j].x, allPoints[i].y - allPoints[j].y);
         if (d < 80) {
           ctx.beginPath(); ctx.moveTo(allPoints[i].x, allPoints[i].y); ctx.lineTo(allPoints[j].x, allPoints[j].y);
-          ctx.strokeStyle = `rgba(0, 180, 216, ${0.08 * (1 - d / 80)})`;
-          ctx.lineWidth = 0.6; ctx.stroke();
+          ctx.strokeStyle = `rgba(0, 180, 216, ${0.04 * (1 - d / 80)})`;
+          ctx.lineWidth = 0.4; ctx.stroke();
         }
       }
     }
