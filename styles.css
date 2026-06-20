@@ -94,10 +94,10 @@ section{padding:100px 0}
 .about-logo-desc{color:var(--color-primary)!important;font-style:italic;border-left:3px solid var(--color-primary-light);padding-left:12px;margin-bottom:18px!important}
 .about-highlight{color:var(--color-dark)!important;font-weight:600;margin-top:8px!important}
 .about-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;padding-top:24px;border-top:1px solid var(--color-border)}
-.stat{display:flex;flex-direction:column;gap:2px}
-.stat-num{font-size:1.8rem;font-weight:700;color:var(--color-primary);display:inline}
-.stat-suffix{font-size:1.4rem;font-weight:700;color:var(--color-primary)}
-.stat-label{font-size:0.72rem;color:var(--color-text-muted)}
+.stat{display:block}
+.stat-num{font-size:1.8rem;font-weight:700;color:var(--color-primary)}
+.stat-suffix{font-size:1.8rem;font-weight:700;color:var(--color-primary)}
+.stat-label{font-size:0.72rem;color:var(--color-text-muted);display:block;margin-top:4px}
 
 .looking-for{background:var(--color-surface);border-radius:12px;padding:36px 40px;border:1px solid var(--color-border)}
 .looking-for h3{font-size:1.1rem;font-weight:700;margin-bottom:16px;color:var(--color-dark)}
