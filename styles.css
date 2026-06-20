@@ -89,7 +89,7 @@ section{padding:100px 0}
 .section-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
 .section-eyebrow{display:block;font-size:0.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--color-primary);margin-bottom:6px;font-weight:600}
 .section-top h2{font-size:1.8rem;font-weight:700;color:var(--color-dark)}
-.section-desc{font-size:0.9rem;color:var(--color-text-muted);max-width:680px;margin-bottom:40px;line-height:1.8}
+.section-desc{font-size:0.9rem;color:var(--color-text-muted);max-width:680px;margin-bottom:40px;line-height:1.8;text-align:justify}
 
 /* ===== About ===== */
 .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;margin-bottom:60px}
@@ -107,8 +107,15 @@ section{padding:100px 0}
 .looking-for{background:var(--color-surface);border-radius:12px;padding:36px 40px;border:1px solid var(--color-border)}
 .looking-for h3{font-size:1.1rem;font-weight:700;margin-bottom:16px;color:var(--color-dark)}
 .looking-for ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.looking-for li{font-size:0.88rem;color:var(--color-text-muted);padding-left:20px;position:relative}
-.looking-for li::before{content:'✓';position:absolute;left:0;color:var(--color-primary);font-weight:700}
+.looking-for li{font-size:0.88rem;color:var(--color-text-muted);padding-left:28px;position:relative}
+.looking-for li::before{content:'';position:absolute;left:0;top:4px;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--color-primary),var(--color-primary-light))}
+.looking-for li::after{content:'';position:absolute;left:4px;top:7px;width:8px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) scale(0);opacity:0;transition:transform 0.3s cubic-bezier(0.3,1.5,0.7,1) 0.1s, opacity 0.2s ease 0.1s}
+.looking-for.visible li::after{transform:rotate(-45deg) scale(1);opacity:1}
+.looking-for.visible li:nth-child(1)::after{transition-delay:0.2s}
+.looking-for.visible li:nth-child(2)::after{transition-delay:0.4s}
+.looking-for.visible li:nth-child(3)::after{transition-delay:0.6s}
+.looking-for.visible li:nth-child(4)::after{transition-delay:0.8s}
+.looking-for.visible li:nth-child(5)::after{transition-delay:1.0s}
 
 /* ===== Services ===== */
 .services-section{background:var(--color-bg-alt)}
